@@ -8,7 +8,11 @@ class ApplicationController < ActionController::Base
     if user
       if user.api_token == request.headers['X-Api-Token']
         sign_in user
+      else
+        head :no_content
       end
+    else 
+      head :no_content
     end
   end
 
