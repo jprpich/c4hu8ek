@@ -5,15 +5,8 @@ class ApplicationController < ActionController::Base
 
   def basic_auth
     user = User.find_by_email(request.headers['X-User-Email'])
-    if user
-      if user.api_token == request.headers['X-Api-Token']
-        sign_in user
-      else
-        render json: {}, status: 401
-      end
-    else 
+    unless user && user.api_token == request.headers['X-Api-Token']
       render json: {}, status: 401
     end
   end
-
 end
