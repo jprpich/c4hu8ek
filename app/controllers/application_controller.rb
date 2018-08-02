@@ -9,10 +9,10 @@ class ApplicationController < ActionController::Base
       if user.api_token == request.headers['X-Api-Token']
         sign_in user
       else
-        head :no_content
+        render json: {}, status: 401
       end
     else 
-      head :no_content
+      render json: {}, status: 401
     end
   end
 
