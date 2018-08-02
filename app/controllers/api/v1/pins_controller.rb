@@ -1,4 +1,7 @@
 class Api::V1::PinsController < ApplicationController
+  protect_from_forgery with: :null_session
+  before_action :basic_auth
+
   def index
     render json: Pin.all.order('created_at DESC')
   end
@@ -16,4 +19,6 @@ class Api::V1::PinsController < ApplicationController
     def pin_params
       params.require(:pin).permit(:title, :image_url)
     end
+
+
 end
